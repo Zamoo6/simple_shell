@@ -1,4 +1,5 @@
 #include "main.h"
+#include <sys/wait.h>
 /*
  * _execute - function to exectue command's
  * Return: wating for now command
