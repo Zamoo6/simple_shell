@@ -4,7 +4,7 @@
  * Return: wating for now command
  */
 
-void execute_command(const char *command)
+void execute_com(const char *com)
 {
 	pid_t child_pid = fork();
 
@@ -15,7 +15,7 @@ void execute_command(const char *command)
 	}
 	else if (child_pid ==0)
 	{
-		execlp(command, command, (char *)NULL);
+		execlp(com, com, (char *)NULL);
 		perror("execlp");
 		exit(EXIT_FAILURE);
 	}
