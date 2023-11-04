@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
-int print_prompt(int ac, char **av);
+void print_prompt(void);
 void _printf(const char *string);
 void read_com(char *com, size_t size);
 void exec_com(const char *com);
