@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 /*
  * _execute - function to exectue command's
  * Return: wating for now command
