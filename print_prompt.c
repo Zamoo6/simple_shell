@@ -5,15 +5,25 @@
  * @av: cha
  * Return: void
  */
-void print_prompt(int ac, char **av)
+int print_prompt(int ac, char **av)
 {
+ssize_t end;
 char *pro = "$ ";
 char *lineptr;
 size_t n = 0;
 (void)ac;
 (void)av;
+while (true)
+{
 _printf(pro);
-getline(&lineptr, &n, stdin);
+end = getline(&lineptr, &n, stdin);
+if (end == -1)
+{
+_printf("SHELL EXIT\n");
+return (-1);
+}
 _printf(lineptr);
 free(lineptr);
+}
+return (0);
 }
