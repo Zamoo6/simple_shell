@@ -4,7 +4,7 @@
  * Return: wating for now command
  */
 
-void execute_com(const char *com)
+void exec_com(const char *com)
 {
 	pid_t child_pid = fork();
 
