@@ -1,6 +1,7 @@
 #include "main.h"
 /*
- * _execute - function to exectue command's
+ * exec - function to exectue command's
+ * @com: string
  * Return: wating for now command
  */
 
@@ -10,10 +11,10 @@ void exec_com(const char *com)
 
 	if (child_pid == -1)
 	{
-		perror("fork");
+		perror("error");
 		exit(EXIT_FAILURE);
 	}
-	else if (child_pid ==0)
+	else if (child_pid == 0)
 	{
 		execlp(com, com, (char *)NULL);
 		perror("execlp");

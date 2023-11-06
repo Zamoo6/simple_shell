@@ -5,6 +5,9 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+void execthree(char **argv);
 void print_prompt(void);
 void _printf(const char *string);
 void read_com(char *com, size_t size);
