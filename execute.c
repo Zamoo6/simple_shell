@@ -2,6 +2,7 @@
 #include <sys/wait.h>
 /**
  * _execute - function to exectue command's
+ * @com: string
  * Return: wating for now command
  */
 
@@ -12,9 +13,10 @@ void exec_com(const char *com)
 	if (child_pid == -1)
 	{
 		_printf("Warrning: Error process forking");
+		perror("error");
 		exit(EXIT_FAILURE);
 	}
-	else if (child_pid ==0)
+	else if (child_pid == 0)
 	{
 		char *args[256];
 		int arg_count = 0;
