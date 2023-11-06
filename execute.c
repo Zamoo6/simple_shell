@@ -1,4 +1,5 @@
 #include "main.h"
+#include <sys/wait.h>
 /*
  * exec - function to exectue command's
  * @com: string
