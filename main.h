@@ -11,7 +11,7 @@
 #include <errno.h>
 #include <fcntl.h>
 extern char **environ;
-char *read(void);
+char *_read(void);
 char **_token(char * line);
 char *_strdup(const char *str);
 int _strcmp(char *s1, char *s2);
@@ -20,4 +20,6 @@ char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 char *_read(void);
 int _execution(char **command, char **av);
+void freearr(char **arr);
+char *_getenv(char *var);
 #endif

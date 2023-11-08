@@ -9,7 +9,7 @@ int main(int ac, char **av)
 {
 char *the_line = NULL;
 char **command = NULL;
-int status;
+int status = 0;
 (void)ac;
 while (1)
 {

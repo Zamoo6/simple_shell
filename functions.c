@@ -55,4 +55,40 @@ while (s[len])
 	len++;
 return (len);
 }
-
+/**
+ * _strcat - str cut
+ * @d: str
+ * @src: str
+ * Return: str
+ */
+char *_strcat(char *d, char *src)
+{
+char *p = d;
+while (*p)
+	p++;
+while(*src)
+{
+*p = *src;
+p++;
+src++;
+}
+*p = '\0';
+return (d);
+}
+/**
+ * _strcpy - str copy
+ * @d: str
+ * @src: str
+ * Return: srr
+ */
+char *_strcpy(char *d, char *src)
+{
+int i = 0;
+while (src[i])
+{
+d[i] = src[i];
+i++;
+}
+d[i] = '\0';
+return (d);
+}
