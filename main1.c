@@ -9,7 +9,7 @@ int main(int ac, char **av)
 {
 char *the_line = NULL;
 char **command = NULL;
-int status = 0;
+int status = 0, idx = 0;
 (void)ac;
 while (1)
 {
@@ -20,9 +20,10 @@ if (isatty(STDIN_FILENO))
 	write(STDOUT_FILENO, "\n", 1);
 return (status);
 }
+idx++;
 command = _token(the_line);
 if (!command)
 	continue;
-status = _execution(command, av);
+status = _execution(command, argv, idx);
 }
 }

@@ -6,6 +6,7 @@
  */
 char *_getpath(char *command)
 {
+int i;
 char * path_env, *full, *dir;
 struct stat st;
 for (i = 0; command[i]; i++)
@@ -13,12 +14,11 @@ for (i = 0; command[i]; i++)
 if (command[i] == '/')
 {
 if (stat(command, &st) == 0)
-{
 return (_strdup(command));
-return;
+return (NULL);
 }
 }
-path_env = _getenv("PATH"):
+path_env = _getenv("PATH");
 dir = strtok(path_env, ":");
 while (dir)
 {
@@ -35,6 +35,7 @@ return (full);
 }
 free(full), full = NULL;
 dir = strtok(NULL, ":");
+}
 }
 free(path_env);
 return (NULL);
