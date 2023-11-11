@@ -6,7 +6,7 @@
 
 int main(void)
 {
-	char com[64];
+	char com[256];
 
 	while (1)
 	{
