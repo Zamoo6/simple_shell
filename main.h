@@ -12,7 +12,15 @@
 #include <errno.h>
 #include <fcntl.h>
 
+/* === builtins ===*/
+int is_builtin(char *com);
+void handle_builtin(char **com, char **argv, int *status, int idx);
+void exit_shell(char **com, int *status);
+void print_env(char **com, int *status);
+
+
 #define DELIM "\n\t"
+
 
 extern char **environ;
 

@@ -8,6 +8,8 @@
  * Return: Always 0 (indicating success)
  */
 
+/*
+ *
 int main(void)
 {
 	int x = 10;
@@ -17,3 +19,5 @@ int main(void)
 	printf("The sum of %d and %d is %d\n", x, y, sum);
 	return (0);
 }
+*
+*/
