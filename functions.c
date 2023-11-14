@@ -66,7 +66,7 @@ char *_strcat(char *d, char *src)
 char *p = d;
 while (*p)
 	p++;
-while(*src)
+while (*src)
 {
 *p = *src;
 p++;

@@ -10,13 +10,19 @@ int i;
 if (!arr)
 	return;
 for (i = 0; arr[i]; i++)
-{	
+{
 free(arr[i]);
 arr[i] = NULL;
 }
 free(arr), arr = NULL;
 }
-
+/**
+ * printerror - print errir
+ * @name: char *
+ * @cmd: char *
+ * @idx: int
+ * Return: int
+ */
 void printerror(char *name, char *cmd, int idx)
 {
 char *index, mssg[] = ":not found\n";
@@ -29,7 +35,11 @@ write(STDERR_FILENO, cmd, _strlen(cmd));
 write(STDERR_FILENO, mssg, _strlen(mssg));
 free(index);
 }
-
+/**
+ * _itoa - char
+ * @n: int
+ * Return: char *
+ */
 char *_itoa(int n)
 {
 char buffer[20];
@@ -48,7 +58,12 @@ buffer[i] = '\0';
 reverse_string(buffer, i);
 return (_strdup(buffer));
 }
-
+/**
+ * reverse_string - reverse string
+ * @str: string
+ * @len: int
+ * Return: void
+ */
 void reverse_string(char *str, int len)
 {
 char tmp;

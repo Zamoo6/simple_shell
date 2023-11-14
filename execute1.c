@@ -3,7 +3,8 @@
  * _execute - execute the program
  * @command: str
  * @argv: str
- * Return: in
+ * @idx: int
+ * Return: int
  */
 int _execute(char **command, char **argv, int idx)
 {
@@ -22,7 +23,7 @@ if (child == 0)
 {
 if (execve(full, command, environ) == -1)
 {
-free (full);
+free(full);
 full = NULL;
 freearr(command);
 }
