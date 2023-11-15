@@ -1,42 +1,29 @@
-#include "main.h"
+#include "shell.h"
 /**
- * _getpath - get path
- * @command: str
- * Return: char
+ * starts_with - checks if needle starts with haystack
+ * @haystack: string to search
+ * @needle: the substring to find
+ *
+ * Return: address of next char of haystack or NULL
  */
-char *_getpath(char *command)
+char *starts_with(const char *haystack, const char *needle)
 {
-int i;
-char *path_env, *full, *dir;
-struct stat st;
-for (i = 0; command[i]; i++)
-{
-if (command[i] == '/')
-{
-if (stat(command, &st) == 0)
-return (_strdup(command));
-return (NULL);
+	while (*needle)
+		if (*needle++ != *haystack++)
+			return (NULL);
+	return ((char *)haystack);
 }
-}
-path_env = _getenv("PATH");
-dir = strtok(path_env, ":");
-while (dir)
+/**                                              **_memset - fills memory with a constant byte
+ *@str: he pointer to the memory area
+ *@ba: the byte to fill *s with
+ *@num: the amount of bytes to be filled
+ *Return: (s) a pointer to the memory area s
+ */
+char *_memset(char *str, char ba, unsigned int num)
 {
-full = malloc(_strlen(dir) * _strlen(command) + 2);
-if (full)
-{
-_strcpy(full, dir);
-_strcat(full, "/");
-_strcat(full, command);
-if (stat(full, &st) == 0)
-{
-free(path_env);
-return (full);
-}
-free(full), full = NULL;
-dir = strtok(NULL, ":");
-}
-}
-free(path_env);
-return (NULL);
+        unsigned int i;
+
+        for (i = 0; i < num; i++)
+                str[i] = ba;
+        return (str);
 }

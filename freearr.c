@@ -1,80 +1,77 @@
-#include "main.h"
+#include "shell.h"
 /**
- * _free - free array of strings
- * @arr: array
+ * _strcat - concatenates two strings            * @dest: the destination buffer                 * @src: the source buffer                       *
+ * Return: pointer to destination buffer
+ */                                             char *_strcat(char *dest, char *src)            {                                                       char *ret = dest;
+                                                        while (*dest)                                           dest++;                                 while (*src)                                            *dest++ = *src++;
+        *dest = *src;                                   return (ret);                           }
+/**
+ * _strlen - returns the length of a string
+ * @s: the string whose length to check
+ *
+ * Return: integer length of string
+ */
+int _strlen(char *s)
+{
+	int i = 0;
+
+	if (!s)
+		return (0);
+
+	while (*s++)
+		i++;
+	return (i);
+}
+
+/**
+ * _strcmp - performs lexicogarphic comparison of two strangs.
+ * @s1: the first strang
+ * @s2: the second strang
+ *
+ * Return: negative if s1 < s2, positive if s1 > s2, zero if s1 == s2
+ */
+int _strcmp(char *s1, char *s2)
+{
+	while (*s1 && *s2)
+	{
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		s1++;
+		s2++;
+	}
+	if (*s1 == *s2)
+		return (0);
+	else
+		return (*s1 < *s2 ? -1 : 1);
+}
+/**                                              * _putchar - writes the character c to stdout   * @ch: The character to print
+ * Return: On success 1.                         *                                               */                                             int _putchar(char ch)
+{                                                       static int i;                                   static char buf[WRITE_BUF_SIZE];                                                                if (ch == BUF_FLUSH || i >= WRITE_BUF_SIZE)                                                     {
+                write(1, buf, i);
+                i = 0;
+        }
+        if (ch != BUF_FLUSH)
+                buf[i++] = c;
+        return (1);
+}
+/**
+ * _realloc - real aloc
+ * @ptr: ptr
+ * @old_size: char *
+ * @new_size: chat
  * Return: void
  */
-void _free(char **arr)
-{
-int i;
-if (!arr)
-	return;
-for (i = 0; arr[i]; i++)
-{
-free(arr[i]);
-arr[i] = NULL;
-}
-free(arr), arr = NULL;
-}
-/**
- * printerror - print errir
- * @name: char *
- * @cmd: char *
- * @idx: int
- * Return: int
- */
-void printerror(char *name, char *cmd, int idx)
-{
-char *index, mssg[] = ":not found\n";
-index = _itoa(idx);
-write(STDERR_FILENO, name, _strlen(name));
-write(STDERR_FILENO, ": ", 2);
-write(STDERR_FILENO, index, _strlen(index));
-write(STDERR_FILENO, ": ", 2);
-write(STDERR_FILENO, cmd, _strlen(cmd));
-write(STDERR_FILENO, mssg, _strlen(mssg));
-free(index);
-}
-/**
- * _itoa - char
- * @n: int
- * Return: char *
- */
-char *_itoa(int n)
-{
-char buffer[20];
-int i = 0;
-if (n == 0)
-	buffer[i++] = '0';
-else
-{
-while (n > 0)
-{
-buffer[i++] = (n % 10) + '0';
-n /= 10;
-}
-}
-buffer[i] = '\0';
-reverse_string(buffer, i);
-return (_strdup(buffer));
-}
-/**
- * reverse_string - reverse string
- * @str: string
- * @len: int
- * Return: void
- */
-void reverse_string(char *str, int len)
-{
-char tmp;
-int start = 0;
-int end = len - 1;
-while (start < end)
-{
-tmp = str[start];
-str[start] = str[end];
-str[end] = tmp;
-start++;
-end--;
-}
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)                         {                                                       char *p;                                                                                        if (!ptr)                                               return (malloc(new_size));              if (!new_size)                                          return (free(ptr), NULL);
+        if (new_size == old_size)
+                return (ptr);
+
+        p = malloc(new_size);
+        if (!p)
+                return (NULL);
+
+        old_size = old_size < new_size ? old_size : new_size;
+        while (old_size--)
+                p[old_size] = ((char *)ptr)[old_size];
+        free(ptr);
+        return (p);
 }
