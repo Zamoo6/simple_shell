@@ -1,13 +1,13 @@
-#include <stdio.h>
+#include <main.h>
 /**
- * main - Entry point of the program
+ * sum - Entry point of the program
  *
  * Description: This program calculates the
  * sum of two integers and prints the result.
  *
  * Return: Always 0 (indicating success)
  */
-int main(void)
+int sum(void)
 {
 	int x = 10;
 	int y = 20;
@@ -16,5 +16,3 @@ int main(void)
 	printf("The sum of %d and %d is %d\n", x, y, sum);
 	return (0);
 }
-*
-*/

@@ -1,6 +1,7 @@
 #include "main.h"
 
-/**                                              * main - check cide
+/**
+ * main - check cide
  * @ac: args num
  * @argv: args
  * Return: 0
@@ -25,7 +26,7 @@ if (!command)
         continue;
 status = _execution(command, argv, idx);
 }
-=======
+
 	char com[256];
 
 	while (1)
