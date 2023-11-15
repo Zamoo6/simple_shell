@@ -9,7 +9,7 @@
  */
 int _ourhistory(info_t *info)
 {
-	print_list(info->history);
+	write_list(info->history);
 	return (0);
 }
 
@@ -31,7 +31,7 @@ int st_unset_alias(info_t *info, char *str)
 	c = *p;
 	*p = 0;
 	ret = delete_node_at_index(&(info->alias),
-		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
+			get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
 	*p = c;
 	return (ret);
 }
