@@ -9,9 +9,7 @@ char **_token(char *line)
 int i = 0;
 char **command = NULL;
 int n = 0;
-char DELIM[] = " \t\n";
-char *token = NULL;
-char *tmp = NULL;
+char *token = NULL, *tmp = NULL;
 if (!line)
 	return (NULL);
 tmp = _strdup(line);
@@ -32,12 +30,13 @@ command = malloc(sizeof(char *) * (n + 1));
 if (!command)
 {
 free(line);
+line = NULL;
 return (NULL);
 }
 token = strtok(line, DELIM);
 while (token)
 {
-command[i] = token;
+command[i] = _strdup(token);
 token = strtok(NULL, DELIM);
 i++;
 }

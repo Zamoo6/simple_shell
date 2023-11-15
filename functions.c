@@ -1,4 +1,4 @@
-# include "main.h"
+#include "main.h"
 /**
  * _strdup - string duplecation
  * @str: string
@@ -70,6 +70,7 @@ int _strlen(char *s)
 
 char *_strcat(char *d, char *src)
 {
+<<<<<<< HEAD
 	char *p = d;
 	while (*p)
 		p++;
@@ -81,6 +82,19 @@ char *_strcat(char *d, char *src)
 	}
 	*p = '\0';
 	return (d);
+=======
+char *p = d;
+while (*p)
+	p++;
+while (*src)
+{
+*p = *src;
+p++;
+src++;
+}
+*p = '\0';
+return (d);
+>>>>>>> 01bb5c24dddb201747462fc12fbaa06d624e8889
 }
 
 /**

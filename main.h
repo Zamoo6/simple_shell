@@ -26,12 +26,12 @@ extern char **environ;
 
 char *_read(void);
 char **_token(char *line);
+
 char *_strdup(const char *str);
 int _strcmp(char *s1, char *s2);
 int _strlen(char *s);
-char *_strcat(char *dest, char *src);
-char *_strcpy(char *dest, char *src);
-char *_read(void);
+char *_strcat(char *d, char *src);
+char *_strcpy(char *d, char *src);
 int _execution(char **command, char **argv, int idx);
 void freearr(char **arr);
 char *_getenv(char *var);

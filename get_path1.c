@@ -7,7 +7,7 @@
 char *_getpath(char *command)
 {
 int i;
-char * path_env, *full, *dir;
+char *path_env, *full, *dir;
 struct stat st;
 for (i = 0; command[i]; i++)
 {

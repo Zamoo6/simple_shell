@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * read - reads the line
+ * _read - reads the line
  * Return: line
  */
 char *_read(void)
