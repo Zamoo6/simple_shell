@@ -8,7 +8,7 @@
  */
 int _ourenv(info_t *info)
 {
-	print_list_str(info->env);
+	write_str_list(info->env);
 	return (0);
 }
 
@@ -86,7 +86,7 @@ int env_populate_lnls(info_t *info)
 	size_t i;
 
 	for (i = 0; environ[i]; i++)
-		add_node_end(&node, environ[i], 0);
+		node_add_end(&node, environ[i], 0);
 	info->env = node;
 	return (0);
 }

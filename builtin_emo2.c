@@ -30,8 +30,13 @@ int st_unset_alias(info_t *info, char *str)
 		return (1);
 	c = *p;
 	*p = 0;
+
 	ret = delete_node_at_index(&(info->alias),
 			get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
+
+	ret = remove_index_node(&(info->alias),
+		node_index(info->alias, starts_node_with(info->alias, str, -1)));
+
 	*p = c;
 	return (ret);
 }
@@ -54,7 +59,7 @@ int st_set_alias(info_t *info, char *str)
 		return (st_unset_alias(info, str));
 
 	st_unset_alias(info, str);
-	return (add_node_end(&(info->alias), str, 0) == NULL);
+	return (node_add_end(&(info->alias), str, 0) == NULL);
 }
 
 /**
@@ -97,7 +102,7 @@ int _ouralias(info_t *info)
 		node = info->alias;
 		while (node)
 		{
-			print_alias(node);
+			st_print_alias(node);
 			node = node->next;
 		}
 		return (0);
@@ -108,7 +113,7 @@ int _ouralias(info_t *info)
 		if (p)
 			st_set_alias(info, info->argv[i]);
 		else
-			st_print_alias(node_starts_with(info->alias, info->argv[i], '='));
+			st_print_alias(starts_node_with(info->alias, info->argv[i], '='));
 	}
 
 	return (0);
