@@ -1,27 +1,27 @@
 #include "main.h"
 /**
  * _strdup - string duplecation
- * @str: string
+ * @s: string
  * Return: string
  */
 
-char *_strdup(const char *str)
+char *_strdup(const char *s)
 {
 	char *ptr;
 	int i, len = 0;
-	if (str == NULL)
+	if (s == NULL)
 		return (NULL);
-	while (*str != '\0')
+	while (*s != '\0')
 	{
 		len++;
-		str++;
+		s++;
 	}
-	str = str - len;
+	s = s - len;
 	ptr = malloc(sizeof(char) * (len + 1));
 	if (ptr == NULL)
 		return (NULL);
 	for (i = 0; i <= len; i++)
-		ptr[i] = str[i];
+		ptr[i] = s[i];
 	return (ptr);
 }
 
