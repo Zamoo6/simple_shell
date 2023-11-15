@@ -58,11 +58,11 @@ int find_bultin(info_t *info)
 	builtin_table builtintbl[] = {
 		{"exit", _weexit},
 		{"env", _ourenv},
-		{"help", _wrhelp},
+		{"help", _wehelp},
 		{"history", _ourhistory},
 		{"setenv", _oursetenv},
 		{"unsetenv", _ourunsetenv},
-		{"cd", _ourcd},
+		{"cd", _wecd},
 		{"alias", _ouralias},
 		{NULL, NULL}
 	};

@@ -3,8 +3,10 @@
  * _strcat - concatenates two strings            * @dest: the destination buffer                 * @src: the source buffer                       *
  * Return: pointer to destination buffer
  */                                             char *_strcat(char *dest, char *src)            {                                                       char *ret = dest;
-                                                        while (*dest)                                           dest++;                                 while (*src)                                            *dest++ = *src++;
-        *dest = *src;                                   return (ret);                           }
+	 
+	 while (*dest)                                           dest++;                                 while (*src)
+		 *dest++ = *src++;	 
+	*dest = *src;                                   return (ret);                           }
 /**
  * _strlen - returns the length of a string
  * @s: the string whose length to check
@@ -51,7 +53,7 @@ int _strcmp(char *s1, char *s2)
                 i = 0;
         }
         if (ch != BUF_FLUSH)
-                buf[i++] = c;
+                buf[i++] = ch;
         return (1);
 }
 /**
