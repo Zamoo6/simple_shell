@@ -1,46 +1,73 @@
-#include "main.h"
+#include "shell.h"
+
 /**
- * _token - tokenize
- * @line: str
- * Return: str
+ * _strdup - duplicates a string
+ * @str: the string to duplicate
+ *
+ * Return: pointer to the duplicated string
  */
-char **_token(char *line)
+char *_strdup(const char *str)
 {
-int i = 0;
-char **command = NULL;
-int n = 0;
-char *token = NULL, *tmp = NULL;
-if (!line)
-	return (NULL);
-tmp = _strdup(line);
-token = strtok(tmp, DELIM);
-if (token == NULL)
-{
-free(line), line = NULL;
-free(tmp), tmp = NULL;
-return (NULL);
+	int length = 0;
+	char *ret;
+
+	if (str == NULL)
+		return (NULL);
+
+	ret = malloc(sizeof(char) * (length + 1));
+	if (!ret)
+		return (NULL);
+	for (length++; length--;)
+		ret[length] = *--str;
+	return (ret);
 }
-while (token)
-{
-n++;
-token = strtok(NULL, DELIM);
+/**                                              * _strcpy - copies a string
+ * @dest: the destination                        * @src: the source
+ *                                               * Return: pointer to destination                */
+char *_strcpy(char *dest, char *src)            {
+        int i = 0;
+
+        if (dest == src || src == 0)
+                return (dest);
+        while (src[i])                                  {
+                dest[i] = src[i];                               i++;
+        }
+        dest[i] = 0;
+        return (dest);
 }
-free(tmp), tmp = NULL;
-command = malloc(sizeof(char *) * (n + 1));
-if (!command)
-{
-free(line);
-line = NULL;
-return (NULL);
+/**                                              * _strlen - returns the length of a string      * @s: the string whose length to check          *                                               * Return: integer length of string              */                                             int _strlen(char *s)                            {                                                       int i = 0;                                                                                      if (!s)                                                 return (0);                                                                             while (*s++)                                            i++;
+        return (i);
 }
-token = strtok(line, DELIM);
-while (token)
+/**
+ *_puts - prints an input string
+ i*@str: the string to be printed
+ *
+ * Return: Nothing
+ */
+void _puts(char *str)
 {
-command[i] = _strdup(token);
-token = strtok(NULL, DELIM);
-i++;
+	int i = 0;
+
+	if (!str)
+		return;
+	while (str[i] != '\0')
+	{
+		_putchar(str[i]);
+		i++;
+	}
 }
-free(line), line = NULL;
-command [i] = NULL;
-return (command);
+
+/**
+ * xfree - frees a string of strings
+ * @p: string of strings
+ */
+void xfree(char **p)
+{
+	char **a = p;
+
+	if (!p)
+		return;
+	while (*p)
+		free(*p++);
+	free(a);
 }

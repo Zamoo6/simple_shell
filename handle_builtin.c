@@ -1,67 +1,86 @@
 #include "shell.h"
-/**
- * is_builtin - builtin
- * @com: char *
- * Return: int
- */
-int is_builtin(char *com)
-{
-	char *builtins[] = {"exit", "env", "ch" NULL};
-	int i;
 
-	for (i = 0; builtins[i]; i++)
+/**
+ * is_cmd - determines if a file is an executable command
+ * @info: the info struct
+ * @path: path to the file
+ *
+ * Return: 1 if true, 0 otherwise
+ */
+int is_cmd(info_t *info, char *path)
+{
+	struct stat st;
+
+	(void)info;
+	if (!path || stat(path, &st))
+		return (0);
+
+	if (st.st_mode & S_IFREG)
 	{
-		if (_strcmp(com, builtins[i]) == 0)
-			return (1);
+		return (1);
 	}
 	return (0);
 }
+
 /**
- * handle_builtin - buitl in
- * @com: arr of str
- * @argv: arg
- * @status: stat
- * @idx: index
- * Return: void
+ * ch_dup - duplicates characters
+ * @pathstr: the PATH string
+ * @start: starting index
+ * @stop: stopping index
+ *
+ * Return: pointer to new buffer
  */
-void handle_builtin(chr **com, char **argv, int *status, int idx)
+char *ch_dup(char *pathstr, int start, int stop)
 {
-	(void) argv;
-	(void) idx;
+	static char buf[1024];
+	int i = 0, k = 0;
 
-	if (strcmp(com[0], "exit") == 0)
-		exit_shell();
-
-	else if (_strcmp(com[], "env") == 0)
-		print_env(com, status);
+	for (k = 0, i = start; i < stop; i++)
+		if (pathstr[i] != ':')
+			buf[k++] = pathstr[i];
+	buf[k] = 0;
+	return (buf);
 }
-/**
- * exit_shell - exit the shell
- * @com: str
- * @status: stat
- * Return: void
- */
-void exit_shell(char **com, int *status)
-{
-	freearray2D(com);
-	exit(*status);
-}
-/**
- * print_env - sh
- * @com: str
- * @status: str
- * Return: void
- */
-void print_env(char **com, int *status)
-{
-	int i;
-	(void) status;
 
-	for (i = 0; environ[i]; i++)
+/**
+ * path_find  - finds this cmd in the PATH string
+ * @info: the info struct
+ * @pstr: the PATH string
+ * @cmd: the cmd to find
+ *
+ * Return: full path of cmd if found or NULL
+ */
+char *path_find(info_t *info, char *pstr, char *cmd)
+{
+	int i = 0, curr_pos = 0;
+	char *path;
+
+	if (!pstr)
+		return (NULL);
+	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
 	{
-		write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
-		write(STDOUT_FILENO, "\n", 1);
+		if (is_cmd(info, cmd))
+			return (cmd);
 	}
-	freearray2D(com);
-	*status = 0;
+	while (1)
+	{
+		if (!pstr[i] || pstr[i] == ':')
+		{
+			path = ch_dup(pstr, currpo, i);
+			if (!*path)
+				_strcat(path, cmd);
+			else
+			{
+				_strcat(path, "/");
+				_strcat(path, cmd);
+			}
+			if (is_cmd(info, path))
+				return (path);
+			if (!pstr[i])
+				break;
+			curr_pos = i;
+		}
+		i++;
+	}
+	return (NULL);
 }

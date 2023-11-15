@@ -1,24 +1,24 @@
 #include "shell.h"
 
 /**
- * _erratoi - converts a string to an integer
- * @s: the string to be converted
+ * _eatoi - converts a string to an integer
+ * @str: the string to be converted
  * Return: 0 if no numbers in string, converted number otherwise
  *       -1 on error
  */
-int _erratoi(char *s)
+int _eatoi(char *str)
 {
 	int i = 0;
 	unsigned long int result = 0;
 
-	if (*s == '+')
-		s++;  
-	for (i = 0;  s[i] != '\0'; i++)
+	if (*str == '+')
+		str++;  
+	for (i = 0;  str[i] != '\0'; i++)
 	{
-		if (s[i] >= '0' && s[i] <= '9')
+		if (str[i] >= '0' && str[i] <= '9')
 		{
 			result *= 10;
-			result += (s[i] - '0');
+			result += (str[i] - '0');
 			if (result > INT_MAX)
 				return (-1);
 		}
@@ -29,31 +29,31 @@ int _erratoi(char *s)
 }
 /**
  *_atoi - converts a string to an integer
- *@s: the string to be converted
+ *@str: the string to be converted
  *Return: 0 if no numbers in string, converted number otherwise
  */
 
-int _atoi(char *s)
+int _atoi(char *str)
 {
-	int i, sign = 1, flag = 0, output;
+	int i, s = 1, flag = 0, output;
 	unsigned int result = 0;
 
-	for (i = 0;  s[i] != '\0' && flag != 2; i++)
+	for (i = 0;  str[i] != '\0' && flag != 2; i++)
 	{
-		if (s[i] == '-')
-			sign *= -1;
+		if (str[i] == '-')
+			s *= -1;
 
-		if (s[i] >= '0' && s[i] <= '9')
+		if (str[i] >= '0' && str[i] <= '9')
 		{
 			flag = 1;
 			result *= 10;
-			result += (s[i] - '0');
+			result += (str[i] - '0');
 		}
 		else if (flag == 1)
 			flag = 2;
 	}
 
-	if (sign == -1)
+	if (s == -1)
 		output = -result;
 	else
 		output = result;
@@ -61,13 +61,13 @@ int _atoi(char *s)
 	return (output);
 }
 /**
- * print_error - prints an error message
+ * write_error - prints an error message
  * @info: the parameter & return info struct
- * @estr: string containing specified error type
+ * @es: string containing specified error type
  * Return: 0 if no numbers in string, converted number otherwise
  *        -1 on error
  */
-void print_error(info_t *info, char *estr)
+void write_error(info_t *info, char *es)
 {
 	_eputs(info->fname);
 	_eputs(": ");
@@ -75,7 +75,7 @@ void print_error(info_t *info, char *estr)
 	_eputs(": ");
 	_eputs(info->argv[0]);
 	_eputs(": ");
-	_eputs(estr);
+	_eputs(es);
 }
 
 /**
@@ -115,40 +115,4 @@ int print_d(int input, int fd)
 	count++;
 
 	return (count);
-}
-
-/**
- * convert_number - converter function, a clone of itoa
- * @num: number
- * @base: base
- * @flags: argument flags
- *
- * Return: string
- */
-char *convert_number(long int num, int base, int flags)
-{
-	static char *array;
-	static char buffer[50];
-	char sign = 0;
-	char *ptr;
-	unsigned long n = num;
-
-	if (!(flags & CONVERT_UNSIGNED) && num < 0)
-	{
-		n = -num;
-		sign = '-';
-
-	}
-	array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
-	ptr = &buffer[49];
-	*ptr = '\0';
-
-	do	{
-		*--ptr = array[n % base];
-		n /= base;
-	} while (n != 0);
-
-	if (sign)
-		*--ptr = sign;
-	return (ptr);
 }
