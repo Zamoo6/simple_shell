@@ -7,7 +7,7 @@
  *
  * Return: 0
  */
-int main(int argc, char **argv)
+int main(int c, char **av)
 {
 	info_t info[] = { INFO_INIT };
 	int fd = 2;
@@ -39,6 +39,6 @@ int main(int argc, char **argv)
 	}
 	env_populate_lnls(info);
 	read_hist_ff(info);
-	sh(info, av);
+	hsh(info, av);
 	return (EXIT_SUCCESS);
 }
