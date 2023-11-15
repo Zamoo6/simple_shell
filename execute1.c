@@ -3,13 +3,13 @@
  * _execute - execute the program
  * @command: str
  * @argv: str
+<<<<<<< HEAD
  * @idx: int parameter
  * Return: int
  */
 
 int _execute(char **command, char **argv, int idx)
 {
-<<<<<<< HEAD
 	char *full;
 	pid_t child;
 	int status;
@@ -39,7 +39,7 @@ int _execute(char **command, char **argv, int idx)
 		free(full), full = NULL;
 	}
 	return (WEXITSTATUS(status));
-=======
+
 char *full;
 pid_t child;
 int status;
@@ -67,5 +67,4 @@ freearr(command);
 free(full), full = NULL;
 }
 return (WEXITSTATUS(status));
->>>>>>> 01bb5c24dddb201747462fc12fbaa06d624e8889
 }
