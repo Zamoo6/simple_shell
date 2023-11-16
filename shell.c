@@ -118,33 +118,6 @@ int find_bultin(info_t *info)
 	return (built_int_ret);
 }
 
-<<<<<<< HEAD
-/**
- * find_cmd - finds a command in PATH
- * @info: the parameter & return info struct
- *
- * Return: void
- */
-void find_cmd(info_t *info)
-{
-	char *path = NULL;
-	int i, k;
-
-	info->path = info->argv[0];
-	if (info->linecount_flag == 1)
-	{
-		info->line_count++;
-		info->linecount_flag = 0;
-	}
-	for (i = 0, k = 0; info->arg[i]; i++)
-		if (!is_delim(info->arg[i], " \t\n"))
-			k++;
-	if (!k)
-		return;
-=======
->>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
-
-
 /**
  * fork_cm - forks a an exec thread to run cmd
  * @info: the parameter & return info struct

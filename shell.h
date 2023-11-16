@@ -89,8 +89,8 @@ typedef struct passinfo
 	int env_changed;
 	int status;
 
-	char **cmd_buf; 
-	int cmd_buf_type; 
+	char **cmd_buf;
+	int cmd_buf_type;
 	int readfd;
 	int histcount;
 } info_t;
@@ -123,11 +123,14 @@ char *path_find(info_t *, char *, char *);
 
 
 int loophsh(char **);
+char *_strcpy(char *, char *);
+char *_strdup(const char *);
+void _puts(char *);
+int _putchar(char);
 
-char *_strcpy(char *,char *);                  char *_strdup(const char *);                    void _puts(char *);
-int _putchar(char);                             
-
-char *_strncpy(char *, char *, int);            char *_strncat(char *, char *, int);            char *_strchr(char *, char);
+char *_strncpy(char *, char *, int);
+char *_strncat(char *, char *, int);
+char *_strchr(char *, char);
 void _eputs(char *);
 int _eputchar(char);
 int _putfd(char c, int fd);

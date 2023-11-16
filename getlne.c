@@ -1,36 +1,41 @@
 #include "shell.h"
-/**                                              * _hotline_STDIN - gets the next lin
- * @info: char
+/**
+ * hotline_STDIN - get line
+ * @info: informatin
  * @ptr: char
  * @length: int
- * Return: s
- */                                             int _hotline_STDIN(info_t *info, char **ptr, size_t *length)                                    {
-	 static char buf[READ_BUF_SIZE];
-	 static size_t i, len;
-	 size_t k;
-	 ssize_t r = 0, s = 0;
-	 char *p = NULL, *new_p = NULL, *c;
-	 
-	 p = *ptr;
-	 if (p && length)
+ * Return: int
+ */
+int hotline_STDIN(info_t *info, char **ptr, size_t *length)
+{
+	static char buf[READ_BUF_SIZE];
+	static size_t i, len;
+	size_t k;
+	ssize_t r = 0, s = 0;
+	char *p = NULL, *new_p = NULL, *c;
+
+	p = *ptr;
+	if (p && length)
 		s = *length;
-	 if (i == len)
+	if (i == len)
 		i = len = 0;
-	 
-	 r = read_buf(info, buf, &len);
-	 if (r == -1 || (r == 0 && len == 0))                    return (-1);
-	 c = _strchr(buf + i, '\n');                     k = c ? 1 + (unsigned int)(c - buf) : len;
-	 new_p = _realloc(p, s, s ? s + k : k + 1);
-	 if (!new_p) /* MALLOC FAILURE! */                       return (p ? free(p), -1 : -1);
-	 if (s)
-		 _strncat(new_p, buf + i, k - i);
-	 else
-		 _strncpy(new_p, buf + i, k - i + 1);
+
+	r = read_buf(info, buf, &len);
+	if (r == -1 || (r == 0 && len == 0))                    return (-1);
+
+	c = _strchr(buf + i, '\n');
+	k = c ? 1 + (unsigned int)(c - buf) : len;
+	new_p = _realloc(p, s, s ? s + k : k + 1);
+	if (!new_p)
+		return (p ? free(p), -1 : -1);
+	if (s)
+		_strncat(new_p, buf + i, k - i);
+	else
+	       	_strncpy(new_p, buf + i, k - i + 1);
 	s += k - i;
 	i = k;
 	p = new_p;
-	
-	
+
 	if (length)
 		*length = s;
 	*ptr = p;
@@ -48,16 +53,9 @@ ssize_t chc_input_buf(info_t *info, char **buf, size_t *len)
 {
 	ssize_t r = 0;
 	size_t len_p = 0;
-<<<<<<< HEAD
 
-	if (!*len) /* if nothing left in the buffer, fill it */
-	{
-		/*bfree((void **)info->cmd_buf);*/
-=======
-	
 	if (!*len)
 	{
->>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
 		free(*buf);
 		*buf = NULL;
 		signal(SIGINT, sigintHandler);
@@ -74,14 +72,8 @@ ssize_t chc_input_buf(info_t *info, char **buf, size_t *len)
 				r--;
 			}
 			info->linecount_flag = 1;
-<<<<<<< HEAD
-			remove_comments(*buf);
-			build_history_list(info, *buf, info->histcount++);
-			/* if (_strchr(*buf, ';')) is this a command chain? */
-=======
 			comments_remove(*buf);
 			build_hist_lnls(info, *buf, info->histcount++);
->>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
 			{
 				*len = r;
 				info->cmd_buf = buf;
@@ -105,28 +97,15 @@ ssize_t mnl__get_input(info_t *info)
 	char **buf_p = &(info->arg), *p;
 
 	_putchar(BUF_FLUSH);
-<<<<<<< HEAD
-	r = input_buf(info, &buf, &len);
-	if (r == -1) /* EOF */
-=======
 	r = chc_input_buf(info, &buf, &len);
 	if (r == -1)
->>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
 		return (-1);
 	if (len)
 	{
 		j = i;
 		p = buf + i;
-
-<<<<<<< HEAD
-		check_chain(info, buf, &j, i, len);
-
-		while
-			(j < len) semicolon or end
-=======
 		chk_chain(info, buf, &j, i, len);
-		while (j < len)
->>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
+		while (j < len)	
 		{
 			if (if_chain(info, buf, &j))
 				break;

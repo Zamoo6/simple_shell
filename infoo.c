@@ -60,11 +60,7 @@ void info_free(info_t *info, int all)
 			free(info->arg);
 		if (info->env)
 			list_free(&(info->env));
-<<<<<<< HEAD
-		if (&(info->history))
-=======
-        	if (info->history)
->>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
+		if (info->history)
 			list_free(&(info->history));
 		if (info->alias)
 			list_free(&(info->alias));
