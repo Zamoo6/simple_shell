@@ -63,30 +63,6 @@ int _strcmp(char *s1, char *s2)
 	else
 		return (*s1 < *s2 ? -1 : 1);
 }
-
-/**
- * _putchar - writes the character c to stdout
- * @ch: The character to print
- * Return: On success 1.
- */
-int _putchar(char ch)
-{
-	static int i;
-	static char buf[WRITE_BUF_SIZE];
-
-	if (ch == BUF_FLUSH || i >= WRITE_BUF_SIZE)
-	{
-		write(1, buf, i);
-		i = 0;
-	}
-
-	if (ch != BUF_FLUSH)
-		buf[i++] = ch;
-	return (1);
-}
-
-
-
 /**
  * _realloc - real aloc
  * @ptr: ptr
