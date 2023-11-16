@@ -1,18 +1,37 @@
 #include "shell.h"
 /**
- * _strcat - concatenates two strings            * @dest: the destination buffer                 * @src: the source buffer                       *
+ * _strcat - concatenates two strings
+ * * @dest: the destination buffer
+ * * @src: the source buffer
+ * *
  * Return: pointer to destination buffer
+<<<<<<< HEAD
+ */
+char *_strcat(char *dest, char *src)
+{
+	char *ret = dest;
+	while (*dest)
+		dest++;
+	while (*src)
+		*dest++ = *src++;
+	*dest = *src;
+	return (ret);
+}
+
+=======
  */                                             char *_strcat(char *dest, char *src)            {                                                       char *ret = dest;
 	 
 	 while (*dest)                                           dest++;                                 while (*src)
 		 *dest++ = *src++;	 
 	*dest = *src;                                   return (ret);                           }
+>>>>>>> 73cfe4dddb2a2a5a168c5b94a98a96b0b19dfbc2
 /**
  * _strlen - returns the length of a string
  * @s: the string whose length to check
  *
  * Return: integer length of string
  */
+
 int _strlen(char *s)
 {
 	int i = 0;

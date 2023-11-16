@@ -6,29 +6,36 @@
  * @flags: int
  * Return: char *
  */
+
 char *number_convert(long int n, int b, int flags)	
-{                                                       static char *array;                             static char buffer[50];                         char sign = 0;
-        char *ptr;                                      unsigned long num = n;
-        if (!(flags & CONVERT_UNSIGNED) && n <
- 0)
-        {
-                num = -n;
-                sign = '-';
-
-        }
+{
+	static char *array;
+	static char buffer[50];
+	char sign = 0;
+	char *ptr;
+	unsigned long num = n;
+	if (!(flags & CONVERT_UNSIGNED) && n <0)
+	{
+		num = -n;
+		sign = '-';
+	}
 	array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
-        ptr = &buffer[49];
-        *ptr = '\0';
-
-        do      {
-                *--ptr = array[n % b];
-                num /= b;
-        } while (num != 0);
-
-        if (sign)
-                *--ptr = sign;
-        return (ptr);
+	ptr = &buffer[49];
+	*ptr = '\0';
+	
+	do
+	{
+		*--ptr = array[n % b];
+		num /= b;
+	}
+	
+	while (num != 0);
+	
+	if (sign)
+		*--ptr = sign;
+	return (ptr);
 }
+
 /**
  * is_cmd - determines if a file is an executable command
  * @info: the info struct
@@ -36,6 +43,7 @@ char *number_convert(long int n, int b, int flags)
  *
  * Return: 1 if true, 0 otherwise
  */
+
 int is_cmd(info_t *info, char *path)
 {
 	struct stat st;
