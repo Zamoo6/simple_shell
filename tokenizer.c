@@ -13,6 +13,11 @@ char *_strdup(const char *str)
 
 	if (str == NULL)
 		return (NULL);
+	while (*str)
+	{
+		length++;
+		str++;
+	}
 
 	ret = malloc(sizeof(char) * (length + 1));
 	if (!ret)
@@ -58,16 +63,23 @@ void _puts(char *str)
 }
 
 /**
- * xfree - frees a string of strings
- * @p: string of strings
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
  */
-void xfree(char **p)
+int _putchar(char c)
 {
-	char **a = p;
+	static int i;
+	static char buf[WRITE_BUF_SIZE];
 
-	if (!p)
-		return;
-	while (*p)
-		free(*p++);
-	free(a);
+	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+	{
+		write(1, buf, i);
+		i = 0;
+	}
+	if (c != BUF_FLUSH)
+		buf[i++] = c;
+	return (1);
 }

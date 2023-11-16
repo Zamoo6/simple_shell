@@ -2,12 +2,12 @@
 
 /**
  * main - entry point
- * @argc: arg count
- * @argv: arg vector
+ * @ac: arg count
+ * @av: arg vector
  *
  * Return: 0
  */
-int main(int c, char **av)
+int main(int ac, char **av)
 {
 	info_t info[] = { INFO_INIT };
 	int fd = 2;

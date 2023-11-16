@@ -7,21 +7,21 @@
  *
  * Return: 0 on success, 1 on error, or error code
  */
-int hsh(info_t *inf, char **av)
+int hsh(info_t *info, char **av)
 {
 	ssize_t r = 0;
 	int builtin_ret = 0;
 
-	while (r != -1 && bultin_ret != -2)
+	while (r != -1 && builtin_ret != -2)
 	{
 		info_clear(info);
 		if (interact(info))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
-		r = mnl_get_input(info);
+		r = mnl__get_input(info);
 		if (r != -1)
 		{
-			info_set(info, argv);
+			info_set(info, av);
 			builtin_ret = find_bultin(info);
 			if (builtin_ret == -1)
 				find_cm(info);
@@ -74,7 +74,7 @@ int find_bultin(info_t *info)
 			built_int_ret = builtintbl[i].func(info);
 			break;
 		}
-	return (built_in_ret);
+	return (built_int_ret);
 }
 
 /**
@@ -83,7 +83,7 @@ int find_bultin(info_t *info)
  *
  * Return: void
  */
-void find_cm(info_t *info)
+void find_cmd(info_t *info)
 {
 	char *path = NULL;
 	int i, k;
@@ -100,7 +100,7 @@ void find_cm(info_t *info)
 	if (!k)
 		return;
 
-	path = path_find(info, _getenv(info, "PATH="), info->argv[0]);
+	path = path_find(info, _getvvenv(info, "PATH="), info->argv[0]);
 	if (path)
 	{
 		info->path = path;
@@ -108,7 +108,7 @@ void find_cm(info_t *info)
 	}
 	else
 	{
-		if ((interact(info) || _getenv(info, "PATH=")
+		if ((interact(info) || _getvvenv(info, "PATH=")
 			|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
 			fork_cm(info);
 		else if (*(info->arg) != '\n')

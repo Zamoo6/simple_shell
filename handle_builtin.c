@@ -66,7 +66,7 @@ char *path_find(info_t *info, char *pstr, char *cmd)
 	{
 		if (!pstr[i] || pstr[i] == ':')
 		{
-			path = ch_dup(pstr, currpo, i);
+			path = ch_dup(pstr, curr_pos, i);
 			if (!*path)
 				_strcat(path, cmd);
 			else
