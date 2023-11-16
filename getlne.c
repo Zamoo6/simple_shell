@@ -59,11 +59,11 @@ ssize_t chc_input_buf(info_t *info, char **buf, size_t *len)
 	{
 		free(*buf);
 		*buf = NULL;
-		signal(SIGINT, sigintHandler);
+		signal(SIGINT, s_Handler);
 #if USE_GETLINE
 		r = getline(buf, &len_p, stdin);
 #else
-		r = _getline(info, buf, &len_p);
+		r = hotline_STDIN(info, buf, &len_p);
 #endif
 		if (r > 0)
 		{
