@@ -24,9 +24,9 @@ int if_chain(info_t *info, char *buf, size_t *p)
 		j++;
 		info->cmd_buf_type = CMD_AND;
 	}
-	else if (buf[j] == ';') /* found end of this command */
+	else if (buf[j] == ';')
 	{
-		buf[j] = 0; /* replace semicolon with null */
+		buf[j] = 0;
 		info->cmd_buf_type = CMD_CHAIN;
 	}
 	else
@@ -117,13 +117,13 @@ int rep_vars_tkz(info_t *info)
 		if (!_strcmp(info->argv[i], "$?"))
 		{
 			rep_string_tkz(&(info->argv[i]),
-				_strdup(convert_number(info->status, 10, 0)));
+				_strdup(number_convert(info->status, 10, 0)));
 			continue;
 		}
 		if (!_strcmp(info->argv[i], "$$"))
 		{
 			rep_string_tkz(&(info->argv[i]),
-				_strdup(convert_number(getpid(), 10, 0)));
+				_strdup(number_convert(getpid(), 10, 0)));
 			continue;
 		}
 		node = starts_node_with(info->env, &info->argv[i][1], '=');
