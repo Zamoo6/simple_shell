@@ -19,6 +19,7 @@ char *_strcat(char *dest, char *src)
 	return (ret);
 }
 
+<<<<<<< HEAD
 char *_strcat(char *dest, char *src)
 {
 	char *ret = dest;
@@ -52,6 +53,8 @@ int _strlen(char *s)
 	return (i);
 }
 
+=======
+>>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
 /**
  * _strcmp - performs lexicogarphic comparison of two strangs.
  * @s1: the first strang
@@ -73,6 +76,7 @@ int _strcmp(char *s1, char *s2)
 	else
 		return (*s1 < *s2 ? -1 : 1);
 }
+<<<<<<< HEAD
 /**
  * _putchar - writes the character c to stdout
  * @ch: The character to print
@@ -93,6 +97,8 @@ int _putchar(char ch)
 		buf[i++] = ch;
 	return (1);
 }
+=======
+>>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
 
 /**
  * _realloc - real aloc

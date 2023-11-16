@@ -1,5 +1,22 @@
 #include "shell.h"
+/**
+ * _putsfd - prints
+ * @str: str
+ * @fd: file
+ * Return: 0
+ */
+int _putsfd(char *str, int fd)
+{
+	int i = 0;
 
+	if (!str)
+		return (0);
+	while (*str)
+	{
+		i += _putfd(*str++, fd);
+	}
+	return (i);
+}
 /**
  * get_hist_f - gets the history file
  * @info: parameter struct
@@ -11,7 +28,7 @@ char *get_hist_f(info_t *info)
 {
 	char *buf, *dir;
 
-	dir = _getenv(info, "HOME=");
+	dir = _getvvenv(info, "HOME=");
 	if (!dir)
 		return (NULL);
 	buf = malloc(sizeof(char) * (_strlen(dir) + _strlen(HIST_FILE) + 2));
@@ -33,7 +50,7 @@ char *get_hist_f(info_t *info)
 int write_e_hist(info_t *info)
 {
 	ssize_t fd;
-	char *filename = get_history_file(info);
+	char *filename = get_hist_f(info);
 	list_t *node = NULL;
 
 	if (!filename)
@@ -64,7 +81,7 @@ int read_hist_ff(info_t *info)
 	int i, last = 0, linecount = 0;
 	ssize_t fd, rdlen, fsize = 0;
 	struct stat st;
-	char *buf = NULL, *filename = get_history_file(info);
+	char *buf = NULL, *filename = get_hist_f(info);
 
 	if (!filename)
 		return (0);
@@ -89,16 +106,16 @@ int read_hist_ff(info_t *info)
 		if (buf[i] == '\n')
 		{
 			buf[i] = 0;
-			build_history_list(info, buf + last, linecount++);
+			build_hist_lnls(info, buf + last, linecount++);
 			last = i + 1;
 		}
 	if (last != i)
-		build_history_list(info, buf + last, linecount++);
+		build_hist_lnls(info, buf + last, linecount++);
 	free(buf);
 	info->histcount = linecount;
 	while (info->histcount-- >= HIST_MAX)
 		remove_index_node(&(info->history), 0);
-	renumber_history(info);
+	renum_hist_lnls(info);
 	return (info->histcount);
 }
 

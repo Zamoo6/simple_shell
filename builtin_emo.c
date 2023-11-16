@@ -17,7 +17,7 @@ int _weexit(info_t *info)
 		if (exitcheck == -1)
 		{
 			info->status = 2;
-			print_error(info, "Illegal number: ");
+			write_error(info, "Illegal number: ");
 			_eputs(info->argv[1]);
 			_eputchar('\n');
 			return (1);
@@ -45,10 +45,15 @@ int _wecd(info_t *info)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
 	if (!info->argv[1])
 	{
-		dir = _getenv(info, "HOME=");
+		dir = _getvvenv(info, "HOME=");
 		if (!dir)
+<<<<<<< HEAD
 			chdir_ret =
 				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+=======
+			chdir_ret = 
+				chdir((dir = _getvvenv(info, "PWD=")) ? dir : "/");
+>>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
 		else
 			chdir_ret = chdir(dir);
 	}

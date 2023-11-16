@@ -23,36 +23,23 @@ char *number_convert(long int n, int b, int flags)
 	array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
 	ptr = &buffer[49];
 	*ptr = '\0';
+<<<<<<< HEAD
 	do {
 		*--ptr = array[n % b];
 		num /= b;
 	} while (num != 0);
+=======
+	
+	do 
+	{
+		*--ptr = array[n % b];
+		num /= b;
+	}while (num != 0);
+	
+>>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
 	if (sign)
 		*--ptr = sign;
 	return (ptr);
-}
-
-/**
- * is_cmd - determines if a file is an executable command
- * @info: the info struct
- * @path: path to the file
- *
- * Return: 1 if true, 0 otherwise
- */
-
-int is_cmd(info_t *info, char *path)
-{
-	struct stat st;
-
-	(void)info;
-	if (!path || stat(path, &st))
-		return (0);
-
-	if (st.st_mode & S_IFREG)
-	{
-		return (1);
-	}
-	return (0);
 }
 
 /**

@@ -1,4 +1,45 @@
 #include "shell.h"
+/**
+ * find_cm - finds a command in PATH
+ * @info: the parameter & return info struct
+ *
+ * Return: void
+ */
+void find_cm(info_t *info)
+{
+	char *path = NULL;
+	int i, k;
+
+	info->path = info->argv[0];
+	if (info->linecount_flag == 1)
+	{
+		info->line_count++;
+		info->linecount_flag = 0;
+	}
+	for (i = 0, k = 0; info->arg[i]; i++)
+		if (!is_delim(info->arg[i], " \t\n"))
+			k++;
+	if (!k)
+		return;
+
+	path = path_find(info, _getvvenv(info, "PATH="), info->argv[0]);
+	if (path)
+	{
+		info->path = path;
+		fork_cm(info);
+	}
+	else
+	{
+		if ((interact(info) || _getvvenv(info, "PATH=")
+			|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
+			fork_cm(info);
+		else if (*(info->arg) != '\n')
+		{
+			info->status = 127;
+			write_error(info, "not found\n");
+		}
+	}
+}
 
 /**
  * hsh - main shell loop
@@ -77,6 +118,7 @@ int find_bultin(info_t *info)
 	return (built_int_ret);
 }
 
+<<<<<<< HEAD
 /**
  * find_cmd - finds a command in PATH
  * @info: the parameter & return info struct
@@ -99,25 +141,9 @@ void find_cmd(info_t *info)
 			k++;
 	if (!k)
 		return;
+=======
+>>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
 
-	path = path_find(info, _getvvenv(info, "PATH="), info->argv[0]);
-	if (path)
-	{
-		info->path = path;
-		fork_cm(info);
-	}
-	else
-	{
-		if ((interact(info) || _getvvenv(info, "PATH=")
-			|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
-			fork_cm(info);
-		else if (*(info->arg) != '\n')
-		{
-			info->status = 127;
-			write_error(info, "not found\n");
-		}
-	}
-}
 
 /**
  * fork_cm - forks a an exec thread to run cmd

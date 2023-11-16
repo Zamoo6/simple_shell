@@ -60,13 +60,17 @@ void info_free(info_t *info, int all)
 			free(info->arg);
 		if (info->env)
 			list_free(&(info->env));
+<<<<<<< HEAD
 		if (&(info->history))
+=======
+        	if (info->history)
+>>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
 			list_free(&(info->history));
 		if (info->alias)
 			list_free(&(info->alias));
 		xfree(info->environ);
 			info->environ = NULL;
-		xfree((void **)info->cmd_buf);
+		ptrfree((void **)info->cmd_buf);
 		if (info->readfd > 2)
 			close(info->readfd);
 		_putchar(BUF_FLUSH);
