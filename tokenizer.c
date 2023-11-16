@@ -34,30 +34,36 @@ char *_strdup(const char *str)
  * Return: pointer to destination
  */
 
-char *_strcpy(char *dest, char *src)            {
-        int i = 0;
+char *_strcpy(char *dest, char *src)
+{
+	int i = 0;
 
-        if (dest == src || src == 0)
-                return (dest);
-        while (src[i])                                  {
-                dest[i] = src[i];                               i++;
-        }
-        dest[i] = 0;
-        return (dest);
+	if (dest == src || src == 0)
+		return (dest);
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = 0;
+	return (dest);
 }
+
 /**
  * _strlen - returns the length of a string
  * @s: the string whose length to check
  * Return: integer length of string
- * */
+ */
+
 int _strlen(char *s)
 {
 	int i = 0;
+
 	if (!s)
-		return(0);
+		return (0);
 	while (*s++)
 		i++;
-	return(i);
+	return (i);
 }
 
 /**

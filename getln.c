@@ -13,16 +13,16 @@ ssize_t chc_input_buf(info_t *info, char **buf, size_t *len)
 	ssize_t r = 0;
 	size_t len_p = 0;
 
-	if (!*len)
+	if (!*len) /* if nothing left in the buffer, fill it */
 	{
-		
+		/*bfree((void **)info->cmd_buf);*/
 		free(*buf);
 		*buf = NULL;
-		signal(SIGINT, s_Handler);
+		signal(SIGINT, sigintHandler);
 #if USE_GETLINE
-		r = hotline_STDIN(buf, &len_p, stdin);
+		r = getline(buf, &len_p, stdin);
 #else
-		r = hotline_STDIN(info, buf, &len_p);
+		r = _getline(info, buf, &len_p);
 #endif
 		if (r > 0)
 		{
@@ -32,8 +32,8 @@ ssize_t chc_input_buf(info_t *info, char **buf, size_t *len)
 				r--;
 			}
 			info->linecount_flag = 1;
-			comments_remove(*buf);
-			build_hist_lnls(info, *buf, info->histcount++);
+			remove_comments(*buf);
+			build_history_list(info, *buf, info->histcount++);
 			/* if (_strchr(*buf, ';')) is this a command chain? */
 			{
 				*len = r;
@@ -58,7 +58,7 @@ ssize_t mnl_get_input(info_t *info)
 	char **buf_p = &(info->arg), *p;
 
 	_putchar(BUF_FLUSH);
-	r = chc_input_buf(info, &buf, &len);
+	r = input_buf(info, &buf, &len);
 	if (r == -1) /* EOF */
 		return (-1);
 	if (len)	/* we have commands left in the chain buffer */
@@ -66,8 +66,10 @@ ssize_t mnl_get_input(info_t *info)
 		j = i; /* init new iterator to current buf position */
 		p = buf + i; /* get pointer for return */
 
-		chk_chain(info, buf, &j, i, len);
-		while (j < len) /* iterate to semicolon or end */
+		check_chain(info, buf, &j, i, len);
+
+		while
+			(j < len) semicolon or end
 		{
 			if (if_chain(info, buf, &j))
 				break;

@@ -2,12 +2,12 @@
 
 /**
  * hsh - main shell loop
- * @inf: the parameter & return info struct
+ * @info_t: the parameter & return info struct
  * @av: the argument vector from main()
  *
  * Return: 0 on success, 1 on error, or error code
  */
-int hsh(info_t *info, char **av)
+int hsh(info_t *info_t, char **av)
 {
 	ssize_t r = 0;
 	int builtin_ret = 0;
@@ -48,9 +48,9 @@ int hsh(info_t *info, char **av)
  * @info: the parameter & return info struct
  *
  * Return: -1 if builtin not found,
- *			0 if builtin executed successfully,
- *			1 if builtin found but not successful,
- *			-2 if builtin signals exit()
+ *0 if builtin executed successfully,
+ *1 if builtin found but not successful,
+ *-2 if builtin signals exit()
  */
 int find_bultin(info_t *info)
 {
@@ -78,7 +78,7 @@ int find_bultin(info_t *info)
 }
 
 /**
- * find_cm - finds a command in PATH
+ * find_cmd - finds a command in PATH
  * @info: the parameter & return info struct
  *
  * Return: void
@@ -91,7 +91,7 @@ void find_cmd(info_t *info)
 	info->path = info->argv[0];
 	if (info->linecount_flag == 1)
 	{
-                info->line_count++;
+		info->line_count++;
 		info->linecount_flag = 0;
 	}
 	for (i = 0, k = 0; info->arg[i]; i++)
@@ -143,7 +143,7 @@ void fork_cm(info_t *info)
 			if (errno == EACCES)
 				exit(126);
 			exit(1);
-		} 
+		}
 	}
 	else
 	{

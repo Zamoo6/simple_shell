@@ -52,21 +52,22 @@ char *_strchr(char *str, char ch)
  *@n: the amount of bytes to be maximally used
  *Return: the concatenated string
  */
-char *_strncat(char* d, char* src, int n)       {
-        int i, j;
-        char *s = d;
+char *_strncat(char *d, char *src, int n)
+{
+	int i, j;
+	char *s = d;
 
-        i = 0;
-        j = 0;
-        while (d[i] != '\0')
-                i++;
-        while (src[j] != '\0' && j < n)
-        {
-                d[i] = src[j];
-                i++;
-                j++;
-        }
-        if (j < n)
-                d[i] = '\0';
-        return (s);
+	i = 0;
+	j = 0;
+	while (d[i] != '\0')
+		i++;
+	while (src[j] != '\0' && j < n)
+	{
+		d[i] = src[j];
+		i++;
+		j++;
+	}
+	if (j < n)
+		d[i] = '\0';
+	return (s);
 }

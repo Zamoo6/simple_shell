@@ -5,11 +5,12 @@
  * * @src: the source buffer
  * *
  * Return: pointer to destination buffer
-<<<<<<< HEAD
  */
+
 char *_strcat(char *dest, char *src)
 {
 	char *ret = dest;
+
 	while (*dest)
 		dest++;
 	while (*src)
@@ -18,13 +19,20 @@ char *_strcat(char *dest, char *src)
 	return (ret);
 }
 
-=======
- */                                             char *_strcat(char *dest, char *src)            {                                                       char *ret = dest;
-	 
-	 while (*dest)                                           dest++;                                 while (*src)
-		 *dest++ = *src++;	 
-	*dest = *src;                                   return (ret);                           }
->>>>>>> 73cfe4dddb2a2a5a168c5b94a98a96b0b19dfbc2
+char *_strcat(char *dest, char *src)
+{
+	char *ret = dest;
+
+	while (*dest)
+		dest++;
+
+	while (*src)
+		*dest++ = *src++;
+	*dest = *src;
+
+	return (ret);
+}
+
 /**
  * _strlen - returns the length of a string
  * @s: the string whose length to check
@@ -65,16 +73,27 @@ int _strcmp(char *s1, char *s2)
 	else
 		return (*s1 < *s2 ? -1 : 1);
 }
-/**                                              * _putchar - writes the character c to stdout   * @ch: The character to print
- * Return: On success 1.                         *                                               */                                             int _putchar(char ch)
-{                                                       static int i;                                   static char buf[WRITE_BUF_SIZE];                                                                if (ch == BUF_FLUSH || i >= WRITE_BUF_SIZE)                                                     {
-                write(1, buf, i);
-                i = 0;
-        }
-        if (ch != BUF_FLUSH)
-                buf[i++] = ch;
-        return (1);
+/**
+ * _putchar - writes the character c to stdout
+ * @ch: The character to print
+ * Return: On success 1.
+ */
+int _putchar(char ch)
+{
+	static int i;
+	static char buf[WRITE_BUF_SIZE];
+
+	if (ch == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+	{
+		write(1, buf, i);
+		i = 0;
+	}
+
+	if (ch != BUF_FLUSH)
+		buf[i++] = ch;
+	return (1);
 }
+
 /**
  * _realloc - real aloc
  * @ptr: ptr
@@ -82,17 +101,25 @@ int _strcmp(char *s1, char *s2)
  * @new_size: chat
  * Return: void
  */
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)                         {                                                       char *p;                                                                                        if (!ptr)                                               return (malloc(new_size));              if (!new_size)                                          return (free(ptr), NULL);
-        if (new_size == old_size)
-                return (ptr);
 
-        p = malloc(new_size);
-        if (!p)
-                return (NULL);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+{
+	char *p;
 
-        old_size = old_size < new_size ? old_size : new_size;
-        while (old_size--)
-                p[old_size] = ((char *)ptr)[old_size];
-        free(ptr);
-        return (p);
+	if (!ptr)
+		return (malloc(new_size));
+	if (!new_size)
+		return (free(ptr), NULL);
+	if (new_size == old_size)
+		return (ptr);
+
+	p = malloc(new_size);
+	if (!p)
+		return (NULL);
+
+	old_size = old_size < new_size ? old_size : new_size;
+	while (old_size--)
+		p[old_size] = ((char *)ptr)[old_size];
+	free(ptr);
+	return (p);
 }

@@ -1,4 +1,4 @@
-#include "shell.h" 
+#include "shell.h"
 /**
  * sum - Entry point of the program
  *
