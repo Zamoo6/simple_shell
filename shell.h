@@ -213,7 +213,8 @@ char **strings_list(list_t *);
 size_t write_list(const list_t *);
 list_t *starts_node_with(list_t *, char *, char);
 ssize_t node_index(list_t *, list_t *);
-
+ssize_t chc_input_buf(info_t *, char **, size_t *len);
+ssize_t read_buf(info_t *, char *, size_t *);
 /* chain.c */
 int if_chain(info_t *, char *, size_t *);
 void chk_chain(info_t *, char *, size_t *, size_t, size_t);
