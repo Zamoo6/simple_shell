@@ -4,15 +4,16 @@
  * _eatoi - converts a string to an integer
  * @str: the string to be converted
  * Return: 0 if no numbers in string, converted number otherwise
- *       -1 on error
+ * -1 on error
  */
+
 int _eatoi(char *str)
 {
 	int i = 0;
 	unsigned long int result = 0;
 
 	if (*str == '+')
-		str++;  
+		str++;
 	for (i = 0;  str[i] != '\0'; i++)
 	{
 		if (str[i] >= '0' && str[i] <= '9')
@@ -28,9 +29,9 @@ int _eatoi(char *str)
 	return (result);
 }
 /**
- *_atoi - converts a string to an integer
- *@str: the string to be converted
- *Return: 0 if no numbers in string, converted number otherwise
+ * _atoi - converts a string to an integer
+ * @str: the string to be converted
+ * Return: 0 if no numbers in string, converted number otherwise
  */
 
 int _atoi(char *str)
@@ -65,7 +66,7 @@ int _atoi(char *str)
  * @info: the parameter & return info struct
  * @es: string containing specified error type
  * Return: 0 if no numbers in string, converted number otherwise
- *        -1 on error
+ * -1 on error
  */
 void write_error(info_t *info, char *es)
 {

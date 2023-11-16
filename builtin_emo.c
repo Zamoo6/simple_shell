@@ -3,15 +3,15 @@
 /**
  * _weexit - exits the shell
  * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
- *  Return: exits with a given exit status
- *         (0) if info.argv[0] != "exit"
+ * constant function prototype.
+ * Return: exits with a given exit status
+ * (0) if info.argv[0] != "exit"
  */
 int _weexit(info_t *info)
 {
 	int exitcheck;
 
-	if (info->argv[1])  
+	if (info->argv[1])
 	{
 		exitcheck = _eatoi(info->argv[1]);
 		if (exitcheck == -1)
@@ -32,8 +32,8 @@ int _weexit(info_t *info)
 /**
  * _wecd - changes the current directory of the process
  * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
- *  Return: Always 0
+ * constant function prototype.
+ * Return: Always 0
  */
 int _wecd(info_t *info)
 {
@@ -47,8 +47,13 @@ int _wecd(info_t *info)
 	{
 		dir = _getvvenv(info, "HOME=");
 		if (!dir)
+<<<<<<< HEAD
+			chdir_ret =
+				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+=======
 			chdir_ret = 
 				chdir((dir = _getvvenv(info, "PWD=")) ? dir : "/");
+>>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
 		else
 			chdir_ret = chdir(dir);
 	}
@@ -61,7 +66,7 @@ int _wecd(info_t *info)
 			return (1);
 		}
 		_puts(_getvvenv(info, "OLDPWD=")), _putchar('\n');
-		chdir_ret = 
+		chdir_ret =
 			chdir((dir = _getvvenv(info, "OLDPWD=")) ? dir : "/");
 	}
 	else
@@ -82,9 +87,10 @@ int _wecd(info_t *info)
 /**
  * _wehelp - changes the current directory of the process
  * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
- *  Return: Always 0
+ * constant function prototype.
+ * Return: Always 0
  */
+
 int _wehelp(info_t *info)
 {
 	char **arg_array;
@@ -92,6 +98,6 @@ int _wehelp(info_t *info)
 	arg_array = info->argv;
 	_puts("help call works. Function not yet implemented \n");
 	if (0)
-		_puts(*arg_array); 
+		_puts(*arg_array);
 	return (0);
 }
