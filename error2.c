@@ -23,20 +23,17 @@ char *number_convert(long int n, int b, int flags)
 	array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
 	ptr = &buffer[49];
 	*ptr = '\0';
-<<<<<<< HEAD
+
 	do {
 		*--ptr = array[n % b];
 		num /= b;
 	} while (num != 0);
-=======
-	
-	do 
-	{
+
+	do {
 		*--ptr = array[n % b];
 		num /= b;
-	}while (num != 0);
-	
->>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
+	} while (num != 0);
+
 	if (sign)
 		*--ptr = sign;
 	return (ptr);

@@ -47,13 +47,9 @@ int _wecd(info_t *info)
 	{
 		dir = _getvvenv(info, "HOME=");
 		if (!dir)
-<<<<<<< HEAD
-			chdir_ret =
-				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
-=======
-			chdir_ret = 
-				chdir((dir = _getvvenv(info, "PWD=")) ? dir : "/");
->>>>>>> c8e0c6f870ae4872234b5ce695c939f62c5ab02b
+			chdir_ret = chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+
+			chdir_ret = chdir((dir = _getvvenv(info, "PWD=")) ? dir : "/");
 		else
 			chdir_ret = chdir(dir);
 	}
@@ -66,8 +62,7 @@ int _wecd(info_t *info)
 			return (1);
 		}
 		_puts(_getvvenv(info, "OLDPWD=")), _putchar('\n');
-		chdir_ret =
-			chdir((dir = _getvvenv(info, "OLDPWD=")) ? dir : "/");
+		chdir_ret = chdir((dir = _getvvenv(info, "OLDPWD=")) ? dir : "/");
 	}
 	else
 		chdir_ret = chdir(info->argv[1]);

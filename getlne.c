@@ -21,7 +21,8 @@ int hotline_STDIN(info_t *info, char **ptr, size_t *length)
 		i = len = 0;
 
 	r = read_buf(info, buf, &len);
-	if (r == -1 || (r == 0 && len == 0))                    return (-1);
+	if (r == -1 || (r == 0 && len == 0))
+		return (-1);
 
 	c = _strchr(buf + i, '\n');
 	k = c ? 1 + (unsigned int)(c - buf) : len;
@@ -31,7 +32,7 @@ int hotline_STDIN(info_t *info, char **ptr, size_t *length)
 	if (s)
 		_strncat(new_p, buf + i, k - i);
 	else
-	       	_strncpy(new_p, buf + i, k - i + 1);
+		_strncpy(new_p, buf + i, k - i + 1);
 	s += k - i;
 	i = k;
 	p = new_p;
@@ -68,7 +69,7 @@ ssize_t chc_input_buf(info_t *info, char **buf, size_t *len)
 		{
 			if ((*buf)[r - 1] == '\n')
 			{
-				(*buf)[r - 1] = '\0'; 
+				(*buf)[r - 1] = '\0';
 				r--;
 			}
 			info->linecount_flag = 1;
@@ -91,7 +92,7 @@ ssize_t chc_input_buf(info_t *info, char **buf, size_t *len)
  */
 ssize_t mnl__get_input(info_t *info)
 {
-	static char *buf; 
+	static char *buf;
 	static size_t i, j, len;
 	ssize_t r = 0;
 	char **buf_p = &(info->arg), *p;
@@ -105,7 +106,7 @@ ssize_t mnl__get_input(info_t *info)
 		j = i;
 		p = buf + i;
 		chk_chain(info, buf, &j, i, len);
-		while (j < len)	
+		while (j < len)
 		{
 			if (if_chain(info, buf, &j))
 				break;
