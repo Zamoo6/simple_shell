@@ -12,22 +12,22 @@
 #include <fcntl.h>
 #include <errno.h>
 
-/* for read/write buffers */
+
 #define READ_BUF_SIZE 1024
 #define WRITE_BUF_SIZE 1024
 #define BUF_FLUSH -1
 
-/* for command chaining */
+
 #define CMD_NORM	0
 #define CMD_OR		1
 #define CMD_AND		2
 #define CMD_CHAIN	3
 
-/* for convert_number() */
+
 #define CONVERT_LOWERCASE	1
 #define CONVERT_UNSIGNED	2
 
-/* 1 if using system getline() */
+
 #define USE_GETLINE 0
 #define USE_STRTOK 0
 
@@ -89,8 +89,8 @@ typedef struct passinfo
 	int env_changed;
 	int status;
 
-	char **cmd_buf; /* pointer to cmd ; chain buffer, for memory mangement */
-	int cmd_buf_type; /* CMD_type ||, &&, ; */
+	char **cmd_buf; 
+	int cmd_buf_type; 
 	int readfd;
 	int histcount;
 } info_t;
@@ -113,19 +113,18 @@ typedef struct builtin
 
 int sum(void);
 int hsh(info_t *, char **);
-int find_builtin(info_t *);
-void find_cmd(info_t *);
-void fork_cmd(info_t *);
-
+int find_bultin(info_t *);
+void find_cm(info_t *);
+void fork_cm(info_t *);
 
 int is_cmd(info_t *, char *);
-char *dup_chars(char *, int, int);
-char *find_path(info_t *, char *, char *);
+char *ch_dup(char *, int, int);
+char *path_find(info_t *, char *, char *);
 
 
 int loophsh(char **);
 
-char *_strcpy(char *, char *);                  char *_strdup(const char *);                    void _puts(char *);
+char *_strcpy(char *,char *);                  char *_strdup(const char *);                    void _puts(char *);
 int _putchar(char);                             
 
 char *_strncpy(char *, char *, int);            char *_strncat(char *, char *, int);            char *_strchr(char *, char);
@@ -140,43 +139,42 @@ int _strcmp(char *, char *);
 char *starts_with(const char *, const char *);
 char *_strcat(char *, char *);
 
-char **strtow(char *, char *);
-char **strtow2(char *, char);
-
+char **strsup(char *, char *);
+char **strsup2(char *, char);
 
 char *_memset(char *, char, unsigned int);
-void ffree(char **);
+void xfree(char **);
 void *_realloc(void *, unsigned int, unsigned int);
 
 
-int bfree(void **);
+int ptrfree(void **);
 
 
-int interactive(info_t *);
+int interact(info_t *);
 int is_delim(char, char *);
 int _isalpha(int);
 int _atoi(char *);
 
 
-int _erratoi(char *);
-void print_error(info_t *, char *);
+int _eatoi(char *);
+void write_error(info_t *, char *);
 int print_d(int, int);
-char *convert_number(long int, int, int);
-void remove_comments(char *);
+char *number_convert(long int, int, int);
+void comments_remove(char *);
+int is_cmd(info_t *, char *);
+
+int _weexit(info_t *);
+int _wecd(info_t *);
+int _wehelp(info_t *);
 
 
-int _myexit(info_t *);
-int _mycd(info_t *);
-int _myhelp(info_t *);
+int _ourhistory(info_t *);
+int _ouralias(info_t *);
 
 
-int _myhistory(info_t *);
-int _myalias(info_t *);
-
-
-ssize_t get_input(info_t *);
-int _getline(info_t *, char **, size_t *);
-void sigintHandler(int);
+ssize_t mnl__get_input(info_t *);
+int hotline_STDIN(info_t *, char **, size_t *);
+void s_Handler(int);
 
 
 void info_clear(info_t *);
@@ -184,23 +182,23 @@ void info_set(info_t *, char **);
 void info_free(info_t *, int);
 
 
-char *_getenv(info_t *, const char *);
-int _myenv(info_t *);
-int _mysetenv(info_t *);
-int _myunsetenv(info_t *);
-int populate_env_list(info_t *);
+char *_getvvenv(info_t *, const char *);
+int _ourenv(info_t *);
+int _oursetenv(info_t *);
+int _ourunsetenv(info_t *);
+int env_populate_lnls(info_t *);
 
-/* env2.c module */
-char **get_environ(info_t *);
-int _unsetenv(info_t *, char *);
-int _setenv(info_t *, char *, char *);
+
+char **get_str_env(info_t *);
+int _unsetenv_rv(info_t *, char *);
+int _setenv_rv(info_t *, char *, char *);
 
 /* file_io_functions.c */
-char *get_history_file(info_t *info);
-int write_history(info_t *info);
-int read_history(info_t *info);
-int build_history_list(info_t *info, char *buf, int linecount);
-int renumber_history(info_t *info);
+char *get_hist_f(info_t *info);
+int write_e_hist(info_t *info);
+int read_hist_ff(info_t *info);
+int build_hist_lnls(info_t *info, char *buf, int linecount);
+int renum_hist_lnls(info_t *info);
 
 /* liststr.c module */
 list_t *node_add(list_t **, const char *, int);
@@ -213,14 +211,14 @@ void list_free(list_t **);
 size_t length_list(const list_t *);
 char **strings_list(list_t *);
 size_t write_list(const list_t *);
-list_t *starts_nide_with(list_t *, char *, char);
+list_t *starts_node_with(list_t *, char *, char);
 ssize_t node_index(list_t *, list_t *);
 
 /* chain.c */
-int is_chain(info_t *, char *, size_t *);
-void check_chain(info_t *, char *, size_t *, size_t, size_t);
-int replace_alias(info_t *);
-int replace_vars(info_t *);
-int replace_string(char **, char *);
+int if_chain(info_t *, char *, size_t *);
+void chk_chain(info_t *, char *, size_t *, size_t, size_t);
+int rep_alias_tkz(info_t *);
+int rep_vars_tkz(info_t *);
+int rep_string_tkz(char **, char *);
 
 #endif

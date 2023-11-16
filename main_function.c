@@ -2,12 +2,12 @@
 
 /**
  * main - entry point
- * @argc: arg count
- * @argv: arg vector
+ * @ac: arg count
+ * @av: arg vector
  *
  * Return: 0
  */
-int main(int argc, char **argv)
+int main(int ac, char **av)
 {
 	info_t info[] = { INFO_INIT };
 	int fd = 2;
@@ -37,8 +37,8 @@ int main(int argc, char **argv)
 		}
 		info->readfd = fd;
 	}
-	populate_env_list(info);
-	read_history(info);
+	env_populate_lnls(info);
+	read_hist_ff(info);
 	hsh(info, av);
 	return (EXIT_SUCCESS);
 }

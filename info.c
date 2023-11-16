@@ -24,7 +24,7 @@ void info_set(info_t *info, char **av)
 	info->fname = av[0];
 	if (info->arg)
 	{
-		info->argv = strtow(info->arg, " \t");
+		info->argv = strsup(info->arg, " \t");
 		if (!info->argv)
 		{
 
@@ -39,8 +39,8 @@ void info_set(info_t *info, char **av)
 			;
 		info->argc = i;
 
-		replace_alias(info);
-		replace_vars(info);
+		rep_alias_tkz(info);
+		rep_vars_tkz(info);
 	}
 }
 
@@ -51,7 +51,7 @@ void info_set(info_t *info, char **av)
  */
 void info_free(info_t *info, int all)
 {
-	ffree(info->argv);
+	xfree(info->argv);
 	info->argv = NULL;
 	info->path = NULL;
 	if (all)
@@ -59,14 +59,14 @@ void info_free(info_t *info, int all)
 		if (!info->cmd_buf)
 			free(info->arg);
 		if (info->env)
-			free_list(&(info->env));
-		if (info->history)
-			free_list(&(info->history));
+			list_free(&(info->env));
+        	if (&(info->history));
+			list_free(&(info->history));
 		if (info->alias)
-			free_list(&(info->alias));
-		ffree(info->environ);
+			list_free(&(info->alias));
+		xfree(info->environ);
 			info->environ = NULL;
-		bfree((void **)info->cmd_buf);
+		xfree((void **)info->cmd_buf);
 		if (info->readfd > 2)
 			close(info->readfd);
 		_putchar(BUF_FLUSH);
