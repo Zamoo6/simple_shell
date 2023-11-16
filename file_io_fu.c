@@ -1,5 +1,22 @@
 #include "shell.h"
+/**
+ * _putsfd - prints
+ * @str: str
+ * @fd: file
+ * Return: 0
+ */
+int _putsfd(char *str, int fd)
+{
+	int i = 0;
 
+	if (!str)
+		return (0);
+	while (*str)
+	{
+		i += _putfd(*str++, fd);
+	}
+	return (i);
+}
 /**
  * get_hist_f - gets the history file
  * @info: parameter struct
