@@ -14,7 +14,7 @@ char *ff_get_history_file(info_t *info)
 	dir = ff_getenv(info, "HOME=");
 	if (!dir)
 		return (NULL);
-	buf = ff_malloc(sizeof(char) * (ff_strlen(dir) + ff_strlen(HIST_FILE) + 2));
+	buf = malloc(sizeof(char) * (ff_strlen(dir) + ff_strlen(HIST_FILE) + 2));
 	if (!buf)
 		return (NULL);
 	buf[0] = 0;
@@ -33,7 +33,7 @@ char *ff_get_history_file(info_t *info)
 int ff_write_history(info_t *info)
 {
 	ssize_t fd;
-	char *filename = get_history_file(info);
+	char *filename = ff_get_history_file(info);
 	list_t *node = NULL;
 
 	if (!filename)
@@ -64,7 +64,7 @@ int ff_read_history(info_t *info)
 	int i, last = 0, linecount = 0;
 	ssize_t fd, rdlen, fsize = 0;
 	struct stat st;
-	char *buf = NULL, *filename = get_history_file(info);
+	char *buf = NULL, *filename = ff_get_history_file(info);
 
 	if (!filename)
 		return (0);
@@ -77,7 +77,7 @@ int ff_read_history(info_t *info)
 		fsize = st.st_size;
 	if (fsize < 2)
 		return (0);
-	buf = ff_malloc(sizeof(char) * (fsize + 1));
+	buf = malloc(sizeof(char) * (fsize + 1));
 	if (!buf)
 		return (0);
 	rdlen = read(fd, buf, fsize);
@@ -98,7 +98,7 @@ int ff_read_history(info_t *info)
 	info->histcount = linecount;
 	while (info->histcount-- >= HIST_MAX)
 		ff_delete_node_at_index(&(info->history), 0);
-	renumber_history(info);
+	ff_renumber_history(info);
 	return (info->histcount);
 }
 

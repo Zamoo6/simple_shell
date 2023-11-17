@@ -215,7 +215,7 @@ int ff_renumber_history(info_t *info);
 list_t *ff_add_node(list_t **, const char *, int);
 list_t *ff_add_node_end(list_t **, const char *, int);
 size_t ff_print_list_str(const list_t *);
-int delete_node_at_index(list_t **, unsigned int);
+int ff_delete_node_at_index(list_t **, unsigned int);
 void ff_free_list(list_t **);
 
 /* liststr2.c module */

@@ -14,25 +14,25 @@ int ff_hsh(info_t *info, char **av)
 
 	while (r != -1 && builtin_ret != -2)
 	{
-		clear_info(info);
-		if (interactive(info))
-			_puts("$ ");
+		ff_clear_info(info);
+		if (ff_interactive(info))
+			ff_puts("$ ");
 		ff_eputchar(BUF_FLUSH);
-		r = get_input(info);
+		r = ff_get_input(info);
 		if (r != -1)
 		{
-			set_info(info, av);
-			ff_builtin_ret = ff_find_builtin(info);
+			ff_set_info(info, av);
+			builtin_ret = ff_find_builtin(info);
 			if (builtin_ret == -1)
-				find_cmd(info);
+				ff_find_cmd(info);
 		}
-		else if (interactive(info))
+		else if (ff_interactive(info))
 			ff_putchar('\n');
 		ff_free_info(info, 0);
 	}
 	ff_write_history(info);
 	ff_free_info(info, 1);
-	if (!interactive(info) && info->status)
+	if (!ff_interactive(info) && info->status)
 		exit(info->status);
 	if (builtin_ret == -2)
 	{
@@ -47,23 +47,20 @@ int ff_hsh(info_t *info, char **av)
  * ff_find_builtin - finds a builtin command
  * @info: the parameter & return info struct
  *
- * Return: -1 if builtin not found,
- *			0 if builtin executed successfully,
- *			1 if builtin found but not successful,
- *			-2 if builtin signals exit()
+ * Return: -1
  */
 int ff_find_builtin(info_t *info)
 {
 	int i, built_in_ret = -1;
 	builtin_table builtintbl[] = {
-		{"exit", _myexit},
-		{"env", _myenv},
-		{"help", _myhelp},
-		{"history", _myhistory},
-		{"setenv", _mysetenv},
-		{"unsetenv", _myunsetenv},
-		{"cd", _mycd},
-		{"alias", _myalias},
+		{"exit", ff_myexit},
+		{"env", ff_myenv},
+		{"help", ff_myhelp},
+		{"history", ff_myhistory},
+		{"setenv", ff_mysetenv},
+		{"unsetenv", ff_myunsetenv},
+		{"cd", ff_mycd},
+		{"alias", ff_myalias},
 		{NULL, NULL}
 	};
 
@@ -95,7 +92,7 @@ void ff_find_cmd(info_t *info)
 		info->linecount_flag = 0;
 	}
 	for (i = 0, k = 0; info->arg[i]; i++)
-		if (!is_delim(info->arg[i], " \t\n"))
+		if (!ff_is_delim(info->arg[i], " \t\n"))
 			k++;
 	if (!k)
 		return;
@@ -104,17 +101,17 @@ void ff_find_cmd(info_t *info)
 	if (path)
 	{
 		info->path = path;
-		fork_cmd(info);
+		ff_fork_cmd(info);
 	}
 	else
 	{
 		if ((ff_interactive(info) || ff_getenv(info, "PATH=")
-			|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
-			fork_cmd(info);
+			|| info->argv[0][0] == '/') && ff_is_cmd(info, info->argv[0]))
+			ff_fork_cmd(info);
 		else if (*(info->arg) != '\n')
 		{
 			info->status = 127;
-			print_error(info, "not found\n");
+			ff_print_error(info, "not found\n");
 		}
 	}
 }
@@ -132,7 +129,6 @@ void ff_fork_cmd(info_t *info)
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		/* TODO: PUT ERROR FUNCTION */
 		perror("Error:");
 		return;
 	}
@@ -145,7 +141,6 @@ void ff_fork_cmd(info_t *info)
 				exit(126);
 			exit(1);
 		}
-		/* TODO: PUT ERROR FUNCTION */
 	}
 	else
 	{
@@ -154,7 +149,7 @@ void ff_fork_cmd(info_t *info)
 		{
 			info->status = WEXITSTATUS(info->status);
 			if (info->status == 126)
-				print_error(info, "Permission denied\n");
+				ff_print_error(info, "Permission denied\n");
 		}
 	}
 }

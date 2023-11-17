@@ -26,7 +26,7 @@ char *ff_getenv(info_t *info, const char *name)
 
 	while (node)
 	{
-		p = starts_with(node->str, name);
+		p = ff_starts_with(node->str, name);
 		if (p && *p)
 			return (p);
 		node = node->next;
@@ -48,7 +48,7 @@ int ff_mysetenv(info_t *info)
 		ff_eputs("Incorrect number of arguements\n");
 		return (1);
 	}
-	if (_setenv(info, info->argv[1], info->argv[2]))
+	if (ff_setenv(info, info->argv[1], info->argv[2]))
 		return (0);
 	return (1);
 }
@@ -86,7 +86,7 @@ int ff_populate_env_list(info_t *info)
 	size_t i;
 
 	for (i = 0; environ[i]; i++)
-		add_node_end(&node, environ[i], 0);
+		ff_add_node_end(&node, environ[i], 0);
 	info->env = node;
 	return (0);
 }

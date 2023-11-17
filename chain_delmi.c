@@ -24,9 +24,9 @@ int ff_is_chain(info_t *info, char *buf, size_t *p)
 		j++;
 		info->cmd_buf_type = CMD_AND;
 	}
-	else if (buf[j] == ';') /* found end of this command */
+	else if (buf[j] == ';')
 	{
-		buf[j] = 0; /* replace semicolon with null */
+		buf[j] = 0;
 		info->cmd_buf_type = CMD_CHAIN;
 	}
 	else
@@ -83,7 +83,7 @@ int ff_replace_alias(info_t *info)
 
 	for (i = 0; i < 10; i++)
 	{
-		node = node_starts_with(info->alias, info->argv[0], '=');
+		node = ff_node_starts_with(info->alias, info->argv[0], '=');
 		if (!node)
 			return (0);
 		free(info->argv[0]);
@@ -114,26 +114,26 @@ int ff_replace_vars(info_t *info)
 		if (info->argv[i][0] != '$' || !info->argv[i][1])
 			continue;
 
-		if (!_strcmp(info->argv[i], "$?"))
+		if (!ff_strcmp(info->argv[i], "$?"))
 		{
 			ff_replace_string(&(info->argv[i]),
-				ff_strdup(convert_number(info->status, 10, 0)));
+				ff_strdup(ff_convert_number(info->status, 10, 0)));
 			continue;
 		}
-		if (!_strcmp(info->argv[i], "$$"))
+		if (!ff_strcmp(info->argv[i], "$$"))
 		{
 			ff_replace_string(&(info->argv[i]),
-				ff_strdup(convert_number(getpid(), 10, 0)));
+				ff_strdup(ff_convert_number(getpid(), 10, 0)));
 			continue;
 		}
-		node = node_starts_with(info->env, &info->argv[i][1], '=');
+		node = ff_node_starts_with(info->env, &info->argv[i][1], '=');
 		if (node)
 		{
 			ff_replace_string(&(info->argv[i]),
-				ff_strdup(_strchr(node->str, '=') + 1));
+				ff_strdup(ff_strchr(node->str, '=') + 1));
 			continue;
 		}
-		ff_replace_string(&info->argv[i], _strdup(""));
+		ff_replace_string(&info->argv[i], ff_strdup(""));
 
 	}
 	return (0);
@@ -148,7 +148,7 @@ int ff_replace_vars(info_t *info)
  */
 int ff_replace_string(char **old, char *new)
 {
-	ff_free(*old);
+	free(*old);
 	*old = new;
 	return (1);
 }

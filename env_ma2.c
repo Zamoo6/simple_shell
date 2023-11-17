@@ -35,7 +35,7 @@ int ff_unsetenv(info_t *info, char *var)
 
 	while (node)
 	{
-		p = starts_with(node->str, var);
+		p = ff_starts_with(node->str, var);
 		if (p && *p == '=')
 		{
 			info->env_changed = ff_delete_node_at_index(&(info->env), i);
@@ -67,7 +67,7 @@ int ff_setenv(info_t *info, char *var, char *value)
 	if (!var || !value)
 		return (0);
 
-	buf = ff_malloc(_strlen(var) + ff_strlen(value) + 2);
+	buf = malloc(ff_strlen(var) + ff_strlen(value) + 2);
 	if (!buf)
 		return (1);
 	ff_strcpy(buf, var);
@@ -76,7 +76,7 @@ int ff_setenv(info_t *info, char *var, char *value)
 	node = info->env;
 	while (node)
 	{
-		p = starts_with(node->str, var);
+		p = ff_starts_with(node->str, var);
 		if (p && *p == '=')
 		{
 			free(node->str);
@@ -86,7 +86,7 @@ int ff_setenv(info_t *info, char *var, char *value)
 		}
 		node = node->next;
 	}
-	add_node_end(&(info->env), buf, 0);
+	ff_add_node_end(&(info->env), buf, 0);
 	free(buf);
 	info->env_changed = 1;
 	return (0);

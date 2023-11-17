@@ -30,8 +30,8 @@ int ff_unset_alias(info_t *info, char *str)
 		return (1);
 	c = *p;
 	*p = 0;
-	ret = delete_node_at_index(&(info->alias),
-		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
+	ret = ff_delete_node_at_index(&(info->alias),
+		ff_get_node_index(info->alias, ff_node_starts_with(info->alias, str, -1)));
 	*p = c;
 	return (ret);
 }
@@ -47,14 +47,14 @@ int ff_set_alias(info_t *info, char *str)
 {
 	char *p;
 
-	p = _strchr(str, '=');
+	p = ff_strchr(str, '=');
 	if (!p)
 		return (1);
 	if (!*++p)
-		return (unset_alias(info, str));
+		return (ff_unset_alias(info, str));
 
 	ff_unset_alias(info, str);
-	return (add_node_end(&(info->alias), str, 0) == NULL);
+	return (ff_add_node_end(&(info->alias), str, 0) == NULL);
 }
 
 /**
@@ -71,7 +71,7 @@ int ff_print_alias(list_t *node)
 	{
 		p = ff_strchr(node->str, '=');
 		for (a = node->str; a <= p; a++)
-			_putchar(*a);
+			ff_putchar(*a);
 		ff_putchar('\'');
 		ff_puts(p + 1);
 		ff_puts("'\n");
@@ -90,7 +90,7 @@ int ff_myalias(info_t *info)
 {
 	int i = 0;
 	char *p = NULL;
-	ff_list_t *node = NULL;
+	list_t *node = NULL;
 
 	if (info->argc == 1)
 	{
@@ -104,11 +104,11 @@ int ff_myalias(info_t *info)
 	}
 	for (i = 1; info->argv[i]; i++)
 	{
-		p = ff__strchr(info->argv[i], '=');
+		p = ff_strchr(info->argv[i], '=');
 		if (p)
 			ff_set_alias(info, info->argv[i]);
 		else
-			print_alias(node_starts_with(info->alias, info->argv[i], '='));
+			ff_print_alias(ff_node_starts_with(info->alias, info->argv[i], '='));
 	}
 
 	return (0);
