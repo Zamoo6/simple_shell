@@ -22,33 +22,40 @@ char *_memset(char *str, char ba, unsigned int num)
  */
 void xfree(char **pp)
 {
-        char **a = pp;
+	char **a = pp;
 
-        if (!pp)
-                return;
+	if (!pp)
+		return;
 	while (*pp)
 		free(*pp++);
 	free(a);
 }
 
-/**                                              * _realloc - real aloc
+/**
+ * _realloc - real aloc
  * @ptr: ptr
- * @old_size: char *
- * @new_size: chat                               * Return: void                                  */                                             
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)                         {                                                       char *p;                                
-        if (!ptr)                                               return (malloc(new_size));
+ * @old_size: char
+ * @new_size: chat
+ * Return: void
+ */
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+{
+	char *p;
+
+	if (!ptr)
+		return (malloc(new_size));
 	if (!new_size)
 		return (free(ptr), NULL);
-        if (new_size == old_size)
-                return (ptr);
+	if (new_size == old_size)
+		return (ptr);
 
-        p = malloc(new_size);
-        if (!p)
-                return (NULL);
+	p = malloc(new_size);
+	if (!p)
+		return (NULL);
 
-        old_size = old_size < new_size ? old_size : new_size;
-        while (old_size--)
-                p[old_size] = ((char *)ptr)[old_size];
-        free(ptr);
-        return (p);
+	old_size = old_size < new_size ? old_size : new_size;
+	while (old_size--)
+		p[old_size] = ((char *)ptr)[old_size];
+	free(ptr);
+	return (p);
 }
