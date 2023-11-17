@@ -63,32 +63,5 @@ int _strcmp(char *s1, char *s2)
 	else
 		return (*s1 < *s2 ? -1 : 1);
 }
-/**
- * _realloc - real aloc
- * @ptr: ptr
- * @old_size: char *
- * @new_size: chat
- * Return: void
- */
-
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
-{
-	char *p;
-
-	if (!ptr)
-		return (malloc(new_size));
-	if (!new_size)
-		return (free(ptr), NULL);
-	if (new_size == old_size)
-		return (ptr);
-
-	p = malloc(new_size);
-	if (!p)
-		return (NULL);
-
-	old_size = old_size < new_size ? old_size : new_size;
-	while (old_size--)
-		p[old_size] = ((char *)ptr)[old_size];
-	free(ptr);
-	return (p);
-}
+/**                                              * starts_with - checks if needle starts with haystack                                           * @haystack: string to search                   * @needle: the substring to find                *                                               * Return: address of next char of haystack or NULL                                              */
+                                                char *starts_with(const char *haystack, const char *needle)                                     {                                                       while (*needle)                                         if (*needle++ != *haystack++)                           return (NULL);                  return ((char *)haystack);              }
