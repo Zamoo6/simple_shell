@@ -30,10 +30,8 @@ int st_unset_alias(info_t *info, char *str)
 		return (1);
 	c = *p;
 	*p = 0;
-
 	ret = remove_index_node(&(info->alias),
 			node_index(info->alias, starts_node_with(info->alias, str, -1)));
-
 	*p = c;
 	return (ret);
 }
