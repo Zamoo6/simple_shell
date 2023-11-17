@@ -62,8 +62,8 @@ char **strsup2(char *str, char d)
 	if (str == NULL || str[0] == 0)
 		return (NULL);
 	for (i = 0; str[i] != '\0'; i++)
-		if ((str[i] != d && str[i + 1] == d)
-				|| (str[i] != d && !str[i + 1]) || str[i + 1] == d)
+		if ((str[i] != d && str[i + 1] == d) ||
+				(str[i] != d && !str[i + 1]) || str[i + 1] == d)
 			numwords++;
 	if (numwords == 0)
 		return (NULL);
@@ -91,19 +91,4 @@ char **strsup2(char *str, char d)
 	}
 	s[j] = NULL;
 	return (s);
-}
-
-/**
- * is_delim - checks if character is a delimeter
- * @c: the char to check
- * @delim: the delimeter string
- * Return: 1 if true, 0 if false
- */
-
-int is_delim(char c, char *delim)
-{
-	while (*delim)
-		if (*delim++ == c)
-			return (1);
-	return (0);
 }
