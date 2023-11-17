@@ -26,15 +26,19 @@ void xfree(char **pp)
 
         if (!pp)
                 return;
-        while (*pp)
-                free(*pp++);                            free(a);                                }
+	while (*pp)
+		free(*pp++);
+	free(a);
+}
+
 /**                                              * _realloc - real aloc
  * @ptr: ptr
  * @old_size: char *
  * @new_size: chat                               * Return: void                                  */                                             
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)                         {                                                       char *p;                                
-        if (!ptr)                                               return (malloc(new_size));              if (!new_size)
-                return (free(ptr), NULL);
+        if (!ptr)                                               return (malloc(new_size));
+	if (!new_size)
+		return (free(ptr), NULL);
         if (new_size == old_size)
                 return (ptr);
 

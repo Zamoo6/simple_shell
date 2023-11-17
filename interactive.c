@@ -44,8 +44,7 @@ int _atoi(char *str)                            {
                 if (str[i] == '-')
                         s *= -1;
 
-                if (str[i] >= '0' && str[i] <= '
-9')
+                if (str[i] >= '0' && str[i] <= '9')
                 {
                         flag = 1;
                         result *= 10;
