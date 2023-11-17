@@ -106,19 +106,4 @@ int is_delim(char c, char *delim)
 		if (*delim++ == c)
 			return (1);
 	return (0);
-}
-
-/**
- * xfree - frees a string of strings
- * @pp: string of strings
- */
-void xfree(char **pp)
-{
-	char **a = pp;
-
-	if (!pp)
-		return;
-	while (*pp)
-		free(*pp++);
-	free(a);
-}
+} 
