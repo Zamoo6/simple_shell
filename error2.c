@@ -25,12 +25,7 @@ char *number_convert(long int n, int b, int flags)
 	*ptr = '\0';
 
 	do {
-		*--ptr = array[n % b];
-		num /= b;
-	} while (num != 0);
-
-	do {
-		*--ptr = array[n % b];
+		*--ptr = array[num % b];
 		num /= b;
 	} while (num != 0);
 

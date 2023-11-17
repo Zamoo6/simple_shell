@@ -49,8 +49,8 @@ char *_strcpy(char *dest, char *src)
 	return (dest);
 }
 /**
- *_puts - prints an input string
- i*@str: the string to be printed
+ *_puts - prints an input stri
+ *@str: the string to be printed
  *
  * Return: Nothing
  */
